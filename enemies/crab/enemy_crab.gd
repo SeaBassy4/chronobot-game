@@ -6,6 +6,8 @@ var enemy_death_effect = preload("res://enemies/enemy_death_effect.tscn")
 @export var speed : int = 1500
 @export var wait_time : int = 3
 @export var health_amount : int = 3
+@export var damage_amount : int = 1
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var timer: Timer = $Timer
 
@@ -65,7 +67,7 @@ func enemy_walk(delta: float):
 		
 		if current_point_position >= number_of_points:
 			current_point_position = 0
-		
+			
 		current_point = point_positions[current_point_position]
 		
 		if current_point.x > position.x:

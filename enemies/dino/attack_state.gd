@@ -24,7 +24,6 @@ func on_physics_process(delta : float):
 	
 	character_body_2d.velocity.x += direction * speed * delta
 	character_body_2d.velocity.x = clamp(character_body_2d.velocity.x, -max_speed, max_speed)
-	print("Velocity is: ", character_body_2d.velocity.x)
 	character_body_2d.move_and_slide()
 
 func enter():

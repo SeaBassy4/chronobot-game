@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfspb68idre4s"]
+
+[ext_resource type="Texture2D" uid="uid://cr3362xq8jhyr" path="res://player/shot.png" id="1_1y6ct"]
+[ext_resource type="Script" uid="uid://dnelxwbahssyb" path="res://player/bullet.gd" id="2_j40gx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j40gx"]
+atlas = ExtResource("1_1y6ct")
+region = Rect2(0, 0, 6, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boyjm"]
+atlas = ExtResource("1_1y6ct")
+region = Rect2(6, 0, 6, 4)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_42du2"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j40gx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boyjm")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j40gx"]
+radius = 3.0
+height = 8.0
+
+[node name="Bullet" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_42du2")
+animation = &"shot"
+frame_progress = 0.7663761
+script = ExtResource("2_j40gx")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_j40gx")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -26,19 +26,17 @@ var can_walk : bool
 
 
 func _ready():
-	if patrol_points != null:
+	if patrol_points != null and patrol_points.get_child_count() > 0:
 		number_of_points = patrol_points.get_children().size()
 		for point in patrol_points.get_children():
 			point_positions.append(point.global_position)
 		current_point = point_positions[current_point_position]
 	else:
-		print("No Patrol Points")
+		print("Warning: Patrol Points node is missing or has no children!")
+		can_walk = false
 	
 	timer.wait_time = wait_time
-	
 	current_state = State.Idle
-	
-	
 
 func _physics_process(delta: float):
 	enemy_gravity(delta)
